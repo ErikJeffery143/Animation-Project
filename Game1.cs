@@ -101,7 +101,6 @@ namespace Animation_Project
                     shRektangle = new Rectangle(150, 150, 200+600, 100+300);
                     screamSound.Play();
 
-
                 }
                     
 
