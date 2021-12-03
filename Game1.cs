@@ -19,10 +19,15 @@ namespace Animation_Project
         Texture2D YouDied;
         SoundEffect deathSoundeffect;
         SoundEffect screamSound;
+
         MouseState mouseState;
         Texture2D currentShrek;
 
         SoundEffectInstance screamInstance;
+        SoundEffectInstance deathInstance;
+        
+
+
 
 
         Screen CurrentScreen;
@@ -30,7 +35,7 @@ namespace Animation_Project
         {
             Intro,
             Death,
-            StandingThere
+            StandingThere 
 
         }
 
@@ -45,11 +50,20 @@ namespace Animation_Project
 
         protected override void Initialize()
         {
+            if (CurrentScreen == Screen.Intro)
+            {
+                this.Window.Title = "Click to go Next";
+            }
+            
+                
+
             shRektangle = new Rectangle(150, 150, 200, 100);
             shrekSpeed = new Vector2(10, 10);
 
 
-
+            _graphics.PreferredBackBufferWidth = 800;
+            _graphics.PreferredBackBufferHeight = 500;
+            _graphics.ApplyChanges();
 
 
 
@@ -65,15 +79,17 @@ namespace Animation_Project
             runningTexture = Content.Load<Texture2D>("ShrekRunning");
             reachingTexture = Content.Load<Texture2D>("ShrekReaching");
 
-            YouDied = Content.Load<Texture2D>("DarkSouls_Death");
+            YouDied = Content.Load<Texture2D>("NewDarksoulsDeath");
             standingThereTexture = Content.Load<Texture2D>("StandingThere_");
             OutHouseintroScreen = Content.Load<Texture2D>("ShrekOuthouse");
 
             deathSoundeffect = Content.Load<SoundEffect>("DarkSoulsYouDiedSound");
             screamSound = Content.Load<SoundEffect>("SCREAM_4");
             screamInstance = screamSound.CreateInstance();
-
+            deathInstance = deathSoundeffect.CreateInstance();
             currentShrek = runningTexture;
+
+            
 
 
             // TODO: use this.Content to load your game content here
@@ -82,6 +98,9 @@ namespace Animation_Project
         protected override void Update(GameTime gameTime)
         {
             mouseState = Mouse.GetState();
+
+
+
             if (CurrentScreen == Screen.Intro)
             {
 
@@ -98,8 +117,17 @@ namespace Animation_Project
                     currentShrek = reachingTexture;
                     shrekSpeed.X = 0;
                     shrekSpeed.Y = 0;
-                    shRektangle = new Rectangle(150, 150, 200+600, 100+300);
-                    screamSound.Play();
+                    shRektangle = new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
+                    screamInstance.Play();
+                    if (screamInstance.State == SoundState.Stopped)
+                    {
+                        CurrentScreen = Screen.Death;
+
+                    }
+                    if (CurrentScreen == Screen.Death)
+                    {
+                        
+                    }
 
                 }
                     
@@ -122,20 +150,35 @@ namespace Animation_Project
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.White);
+            GraphicsDevice.Clear(Color.Black);
             _spriteBatch.Begin();
             if (CurrentScreen == Screen.Intro)
             {
-                _spriteBatch.Draw(OutHouseintroScreen, new Rectangle(0, 0, 800, 500), Color.White);
-                if (mouseState.LeftButton == ButtonState.Pressed) 
+                _spriteBatch.Draw(OutHouseintroScreen, new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight), Color.White);
+                if (mouseState.LeftButton == ButtonState.Pressed)
+                {
                     CurrentScreen = Screen.StandingThere;
-              
+                    screamInstance.Play();
+                } 
+                    
             }
             else if (CurrentScreen == Screen.StandingThere)
             {
+                
                 _spriteBatch.Draw(standingThereTexture, new Rectangle(0, 0, 800, 500), Color.White);
                 _spriteBatch.Draw(currentShrek, shRektangle, Color.White);
+                if (screamInstance.State == SoundState.Stopped)
+                {
+                    deathInstance.Play();
+                    CurrentScreen = Screen.Death;
+                }
+            }
+            else if (CurrentScreen == Screen.Death)
+            {
+                _spriteBatch.Draw(YouDied, new Rectangle(0, 0, 800, 500), Color.White);
                 
+                if (deathInstance.State == SoundState.Stopped)
+                    Exit();
             }
 
 

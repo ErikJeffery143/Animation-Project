@@ -13,7 +13,13 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin DarkSouls_Death.jpg
+#begin DarkSoulsYouDiedSound.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:DarkSoulsYouDiedSound.mp3
+
+#begin NewDarksoulsDeath.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -23,13 +29,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:DarkSouls_Death.jpg
-
-#begin DarkSoulsYouDiedSound.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:DarkSoulsYouDiedSound.mp3
+/build:NewDarksoulsDeath.png
 
 #begin SCREAM_4.mp3
 /importer:Mp3Importer
