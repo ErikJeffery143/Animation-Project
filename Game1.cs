@@ -117,7 +117,7 @@ namespace Animation_Project
                     currentShrek = reachingTexture;
                     shrekSpeed.X = 0;
                     shrekSpeed.Y = 0;
-                    shRektangle = new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
+                    shRektangle = new Rectangle(-300, 0, 1500, _graphics.PreferredBackBufferHeight);
                     screamInstance.Play();
                     if (screamInstance.State == SoundState.Stopped)
                     {
