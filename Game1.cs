@@ -114,6 +114,7 @@ namespace Animation_Project
                 shRektangle.Y += (int)shrekSpeed.Y;
                 if (shRektangle.Bottom > _graphics.PreferredBackBufferHeight || shRektangle.Top < 0)
                 {
+
                     currentShrek = reachingTexture;
                     shrekSpeed.X = 0;
                     shrekSpeed.Y = 0;
